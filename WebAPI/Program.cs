@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Formatting;
-using System.Text;
 using System.Web.Http;
 using System.Web.Http.SelfHost;
 using ContactWebPack;
@@ -15,7 +11,6 @@ namespace WebAPI
         {
             var config = new HttpSelfHostConfiguration("http://localhost:9100/");
 
-            config.ServiceResolver.SetService(typeof(IFormatterSelector),new LoggingFormatterSelector());
             config.Routes.MapHttpRoute("default", "{controller}/{id}", new { id = RouteParameter.Optional });
             
             foreach(var f in Formatters.Available) { config.Formatters.Add(f); }
@@ -28,9 +23,6 @@ namespace WebAPI
             Console.ReadLine();
 
             host.CloseAsync().Wait();
-
-
-
         }
     }
 }
